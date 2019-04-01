@@ -5,8 +5,8 @@ win = pygame.display.set_mode((700, 700))
 
 pygame.display.set_caption("Space Shooters")
 
-bg = pygame.image.load('/Users/Alejandro/PycharmProjects/untitled/Night Sky copy.jpg')
-char = pygame.image.load('/Users/Alejandro/PycharmProjects/untitled/spaceship.gif')
+bg = pygame.image.load('../images/Night Sky copy.jpg')
+char = pygame.image.load('../images/spaceship.gif')
 
 clock = pygame.time.Clock()
 
@@ -21,9 +21,11 @@ class player(object):
         self.ScreenWidth = 700
         self.hitbox = (self.x +20, self.y, 70, 70)
 
+
     def draw(self, win):
         self.hitbox = (self.x + 20, self.y, 64, 64)
         pygame.draw.rect(win, (255, 0, 0), self.hitbox, 2)
+
 
 
 
@@ -49,12 +51,17 @@ def redrawGameWindow():
 
     pygame.display.update()
 
-#mainloop
+
+# mainloop
 ship = player(300, 410, 64, 64)
 bullets = []
 run = True
 
+
 while run:
+
+    print(str(ship.vel))
+
     clock.tick(60)  # FPS
 
     for event in pygame.event.get():
