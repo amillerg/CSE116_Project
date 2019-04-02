@@ -53,15 +53,37 @@ def redrawGameWindow():
     pygame.draw.rect(win, bar_color, [width*(4/5), 0, width, height], 0)
     win.blit(full_heart, ( (width*(4/5)+20), 50))
 
-    """for object in List:
-        create_text("1st", "images/Helvetica.ttf", 10, (255, 255, 255))
-        create_text(object.user, "images/Helvetica.ttf", 10, (255, 255, 255))
-        create_text(object.kills, "images/Helvetica.ttf", 10, (255, 255, 255))
-        create_text(object.deagh, "images/Helvetica.ttf", 10, (255, 255, 255))
 
-"""
+    placing = 1
+    xPlacing = 5
+    xUser = 70
+    xKills = 120
+    xDeaths = 170
+    y = 60
+
+    '''for object in List:
+        create_text(str(placing, "images/Helvetica.ttf", 10, (255, 255, 255)))
+        placing = placing + 1
+        
+        win.blit(placing, (xPlacing, y))
+
+        user = create_text(object.user, "images/Helvetica.ttf", 10, (255, 255, 255))
+        win.blit(user, (xUser, y))
+                 
+        kills = create_text(object.kills, "images/Helvetica.ttf", 10, (255, 255, 255))
+        win.blit(kills, (xKills, y))
+        
+        deaths = create_text(object.deaths, "images/Helvetica.ttf", 10, (255, 255, 255))
+        win.blit(deaths, (xDeaths, y))
+        
+        y + 30 
+        '''
+
+
+
 
     win.blit(leaderboard, (25,30))
+
     win.blit(placingTitle, (5, 60))
     win.blit(userTitle, (70, 60))
     win.blit(killTitle, (120, 60))
