@@ -19,6 +19,8 @@ char = pygame.image.load('images/spaceship.gif')
 char_width = char.get_size()[0]
 char_height = char.get_size()[1]
 
+full_heart = pygame.image.load('images/fullHeart.png')
+
 clock = pygame.time.Clock()
 
 
@@ -47,8 +49,9 @@ deathsTitle = create_text("Deaths", "images/Helvetica.ttf", 14, (255, 255, 255))
 def redrawGameWindow():
     win.blit(bg, (0, 0))
     win.blit(char, (ship.x, ship.y))
-    pygame.draw.rect(win, bar_color, [0, 0, width/6, height], 0)
-    pygame.draw.rect(win, bar_color, [width*(5/6), 0, width, height], 0)
+    pygame.draw.rect(win, bar_color, [0, 0, width/5, height], 0)
+    pygame.draw.rect(win, bar_color, [width*(4/5), 0, width, height], 0)
+    win.blit(full_heart, ( (width*(4/5)+20), 50))
 
     """for object in List:
         create_text("1st", "images/Helvetica.ttf", 10, (255, 255, 255))
@@ -88,7 +91,7 @@ while run:
             run = False
 
     for bullet in ship.bullets:
-        if bullet.x < (width *(5/6)) and bullet.x > (width/6):
+        if bullet.x < (width *(4/5)) and bullet.x > (width/5):
             bullet.x += bullet.vel
         else:
             ship.bullets.pop(ship.bullets.index(bullet))
@@ -103,7 +106,7 @@ while run:
         controller.left_pressed(ship)
 
     # and ship.x < ship.ScreenWidth - ship.width - ship.vel
-    if keys[pygame.K_d] and ship.x >= width/ 6 and (ship.x <= (width*(5/6))):
+    if keys[pygame.K_d] and ship.x >= width/ 5 and (ship.x <= (width*(4/5))):
         controller.right_pressed(ship)
 
     #  and ship.y > ship.vel
