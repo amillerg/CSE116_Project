@@ -22,16 +22,54 @@ char_height = char.get_size()[1]
 clock = pygame.time.Clock()
 
 
+
+_cached_text = {}
+def create_text(text, ourFont, size, color):
+    global _cached_text
+    key = '|'.join(map(str, (ourFont, size, color, text)))
+    image = _cached_text.get(key, None)
+    if image == None:
+        font = pygame.font.Font(ourFont, size)
+        image = font.render(text, True, color)
+        _cached_text[key] = image
+    return image
+
+
+leaderboard = create_text("Leaderboard", "images/Helvetica.ttf", 26, (255, 255, 255))
+
+placingTitle = create_text("Placing", "images/Helvetica.ttf", 14, (255, 255, 255))
+userTitle = create_text("User", "images/Helvetica.ttf", 14, (255, 255, 255))
+killTitle = create_text("Kills", "images/Helvetica.ttf", 14, (255, 255, 255))
+deathsTitle = create_text("Deaths", "images/Helvetica.ttf", 14, (255, 255, 255))
+
+
+
 def redrawGameWindow():
     win.blit(bg, (0, 0))
     win.blit(char, (ship.x, ship.y))
     pygame.draw.rect(win, bar_color, [0, 0, width/6, height], 0)
     pygame.draw.rect(win, bar_color, [width*(5/6), 0, width, height], 0)
 
+    """for object in List:
+        create_text("1st", "images/Helvetica.ttf", 10, (255, 255, 255))
+        create_text(object.user, "images/Helvetica.ttf", 10, (255, 255, 255))
+        create_text(object.kills, "images/Helvetica.ttf", 10, (255, 255, 255))
+        create_text(object.deagh, "images/Helvetica.ttf", 10, (255, 255, 255))
+
+"""
+
+    win.blit(leaderboard, (25,30))
+    win.blit(placingTitle, (5, 60))
+    win.blit(userTitle, (70, 60))
+    win.blit(killTitle, (120, 60))
+    win.blit(deathsTitle, (170, 60))
+
     for bullet in ship.bullets:
         bullet.draw(win)
 
     pygame.display.update()
+
+
 
 
 # mainloop
