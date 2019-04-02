@@ -9,19 +9,19 @@ def space_pressed(ship):
 
 
 def left_pressed(ship):
-    ship.x -= ship.vel
+        ship.x -= ship.vel
 
 
 def right_pressed(ship):
-    ship.x += ship.vel
+        ship.x += ship.vel
 
 
 def up_pressed(ship):
-    ship.y -= ship.vel
+        ship.y -= ship.vel
 
 
 def down_pressed(ship):
-    ship.y += ship.vel
+        ship.y += ship.vel
 
 
 
