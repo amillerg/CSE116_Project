@@ -5,7 +5,7 @@ import MVC.model.model as model
 def space_pressed(ship):
     if len(ship.bullets) < 3:
         ship.bullets.append(
-            model.projectile(round(ship.x + ship.width // 2), round(ship.y + ship.height // 2), 6, (0, 255, 50), 1))
+            model.projectile(round(ship.x + ship.width // 2), round(ship.y + ship.height // 2), 6, (0, 255, 0), 1))
 
 
 def left_pressed(ship):

@@ -36,6 +36,7 @@ class projectile(object):
         self.vel = 20 * direction
     def draw(self, win):
         pygame.draw.circle(win, self.color, (self.x, self.y), self.radius)
+        pygame.draw.circle(win, (0, 0, 0), (self.x, self.y), self.radius - 1)
 
 """
 class projectile(object):

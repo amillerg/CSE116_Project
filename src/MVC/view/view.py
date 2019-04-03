@@ -52,6 +52,8 @@ def redrawGameWindow():
     pygame.draw.rect(win, bar_color, [0, 0, width/5, height], 0)
     pygame.draw.rect(win, bar_color, [width*(4/5), 0, width, height], 0)
     win.blit(full_heart, ( (width*(4/5)+20), 50))
+    if mousePressed:
+        pygame.draw.line(win, (0, 255, 0), line[0], line[1])
 
 
     placing = 1
@@ -105,6 +107,8 @@ list_of_ships = [ship]
 
 while run:
     clock.tick(60)  # FPS
+    mousePressed = False
+    line = [(round(ship.x + ship.width // 2), round(ship.y + ship.height // 2)), pygame.mouse.get_pos()]
 
 
 
@@ -138,6 +142,9 @@ while run:
     #  and ship.y < ship.ScreenWidth - ship.height
     if keys[pygame.K_s] and ship.y >= 0 and ship.y <= height:
         controller.down_pressed(ship)
+
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        mousePressed = True
 
     redrawGameWindow()
 
