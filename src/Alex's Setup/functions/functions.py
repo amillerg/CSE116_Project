@@ -46,15 +46,25 @@ class projectile(object):
 def redrawGameWindow():
     win.blit(bg, (0,0))
     win.blit(char, (ship.x, ship.y))
-    for bullet in bullets:
-        bullet.draw(win)
+
+    for bulletList in bullets:
+        for proj in bulletList:
+            proj.draw(win)
 
     pygame.display.update()
 
 
 # mainloop
 ship = player(300, 410, 64, 64)
-bullets = []
+
+bulletR = []
+bulletL = []
+bulletU = []
+bulletD = []
+bullets = [bulletR, bulletL, bulletU, bulletD]
+shootLoop = 0
+bulletNum = 1 # number of bullets a player is allowed to shoot at a time
+
 run = True
 
 
@@ -68,18 +78,42 @@ while run:
         if event.type == pygame.QUIT:
             run = False
 
-    for bullet in bullets:
-
+    for bullet in bulletR:
         if bullet.x < 700 and bullet.x > 0:
             bullet.x += bullet.vel
         else:
-            bullets.pop(bullets.index(bullet))
+            bulletR.pop(bulletR.index(bullet))
+
+    for bullet in bulletL:
+        if bullet.x < 700 and bullet.x > 0:
+            bullet.x -= bullet.vel
+        else:
+            bulletL.pop(bulletL.index(bullet))
+
+    for bullet in bulletU:
+        if bullet.y < 700 and bullet.y > 0:
+            bullet.y -= bullet.vel
+        else:
+            bulletU.pop(bulletU.index(bullet))
+
+    for bullet in bulletD:
+        if bullet.y < 700 and bullet.y > 0:
+            bullet.y += bullet.vel
+        else:
+            bulletD.pop(bulletD.index(bullet))
 
     keys = pygame.key.get_pressed()
 
-    if keys[pygame.K_SPACE]:
-        if len(bullets) < 3:
-            bullets.append(projectile(round(ship.x + ship.width // 2), round(ship.y + ship.height // 2), 6, (0, 255, 50), 1))
+    if keys[pygame.K_SPACE] and shootLoop == 0 and (len(bulletR) < bulletNum) and (len(bulletL) < bulletNum) and \
+            (len(bulletU) < bulletNum) and (len(bulletD) < bulletNum):
+        bulletR.append(
+            projectile(round(ship.x + ship.width // 2), round(ship.y + ship.height // 2), 6, (0, 255, 50), 1))
+        bulletL.append(
+            projectile(round(ship.x + ship.width // 2), round(ship.y + ship.height // 2), 6, (0, 255, 50), 1))
+        bulletU.append(
+            projectile(round(ship.x + ship.width // 2), round(ship.y + ship.height // 2), 6, (0, 255, 50), 1))
+        bulletD.append(
+            projectile(round(ship.x + ship.width // 2), round(ship.y + ship.height // 2), 6, (0, 255, 50), 1))
 
     if keys[pygame.K_LEFT] and ship.x > ship.vel:
         ship.x -= ship.vel

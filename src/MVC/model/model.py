@@ -13,7 +13,7 @@ class player(object):
         self.width = width
         self.height = height
         self.vel = 14
-        self.ScreenWidth = 700
+        self.ScreenWidth = 1200
         self.hitbox = (self.x + 20, self.y, 70, 70)
         self.bullets = []
         self.coins = 0
@@ -27,13 +27,12 @@ class player(object):
 
 
 class projectile(object):
-    def __init__(self, x, y, radius, color, direction):
+    def __init__(self, x, y, radius, color):
         self.x = x
         self.y = y
         self.radius = radius
         self.color = color
-        self.direction = direction
-        self.vel = 20 * direction
+        self.vel = 40
     def draw(self, win):
         pygame.draw.circle(win, self.color, (self.x, self.y), self.radius)
         pygame.draw.circle(win, (0, 0, 0), (self.x, self.y), self.radius - 1)
