@@ -1,4 +1,5 @@
 import pygame
+import operator
 # import MVC.view as view
 # import MVC.controller as controller
 
@@ -121,3 +122,16 @@ def buy_a_life(ship):
     else:
         ship.health= ship.health + 1
         ship.coins -= 200
+
+def topPlayers(playerList):
+    top = {}  # dictionary of players and their kill to death ratios
+    ratio = 0
+    leaders = []  # list of top players
+    for i in playerList:
+        ratio = (i.kills / i.deaths)
+        top[i] = ratio
+    sorted_top = sorted(top.items(), key=operator.itemgetter(1))  # sorts the dictionary from least to greatest k/d ratio and makes a new list
+    sorted_top.reverse() # reverses the list of sorted players
+    for x in sorted_top:
+        leaders.append(x[0])
+    return leaders # returns list of players from first place to last based on kill/death ratio
