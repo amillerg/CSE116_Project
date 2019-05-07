@@ -1,4 +1,5 @@
 import pygame
+
 pygame.init()
 
 win = pygame.display.set_mode((700, 700))
@@ -73,7 +74,7 @@ while run:
     print(str(ship.vel))
 
     clock.tick(60)  # FPS
-
+"""
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
@@ -131,7 +132,7 @@ pygame.quit()
 
 
 
-
+"""
 
 
 
