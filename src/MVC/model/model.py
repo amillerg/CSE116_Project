@@ -7,19 +7,20 @@ import pygame
 # as they buy more lives, cost per life will go up 20%
 
 class player(object):
-    def __init__(self, x, y, width, height):
+    def __init__(self, x, y, width, height, username):
         self.x = x
         self.y = y
         self.width = width
         self.height = height
         self.vel = 14
-        self.ScreenWidth = 700
+        self.ScreenWidth = 1200
         self.hitbox = (self.x + 20, self.y, 70, 70)
         self.bullets = []
-        self.coins = 0
+        self.coins = 1000
         self.kills = 0
         self.deaths = 0
-        self.username = ""
+        self.health = 3
+        self.username = username
 
     def draw(self, win):
         self.hitbox = (self.x + 20, self.y, 64, 64)
@@ -27,15 +28,18 @@ class player(object):
 
 
 class projectile(object):
-    def __init__(self, x, y, radius, color, direction):
+    def __init__(self, x, y, radius, color, direction, mouselocation):
         self.x = x
         self.y = y
         self.radius = radius
         self.color = color
         self.direction = direction
-        self.vel = 20 * direction
+        self.vel = 10 * direction
+        self.mouselocation = mouselocation
+        self.angle_bullet = round(angle_bullet(self, x, y))
     def draw(self, win):
         pygame.draw.circle(win, self.color, (self.x, self.y), self.radius)
+        pygame.draw.circle(win, (0, 0, 0), (self.x, self.y), self.radius - 1)
 
 """
 class projectile(object):
@@ -95,3 +99,25 @@ def fireBullet():
 
 
 """
+
+def angle_bullet(bullet, x, y):
+    xdistance = bullet.mouselocation[0] - x
+    ydistance = bullet.mouselocation[1] - y
+    answer = (bullet.vel*ydistance)/xdistance
+    if xdistance<0:
+        bullet.vel *= -1
+        answer = answer *-1
+    return answer
+
+def buy_life(mouse):
+    x = mouse[0]
+    y = mouse[1]
+    return x<1150and x>1000 and y>350 and y<420
+
+
+def buy_a_life(ship):
+    if ship.health ==3:
+        pass
+    else:
+        ship.health= ship.health + 1
+        ship.coins -= 200

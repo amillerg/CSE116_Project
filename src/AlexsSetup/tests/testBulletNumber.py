@@ -1,5 +1,5 @@
 import unittest
-from src.functions import demoFunctions
+from AlexsSetup.functions import demoFunctions
 
 
 class UnitTesting(unittest.TestCase):
