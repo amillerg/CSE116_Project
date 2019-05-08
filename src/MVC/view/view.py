@@ -180,6 +180,7 @@ while run:
 
     if event.type == pygame.MOUSEBUTTONDOWN:
         mouse = pygame.mouse.get_pos()
+        print(type(mouse))
         if mouse[0]<((4/5)*width) and mouse[0] > (width/5):
             #mousePressed = True
             controller.mouse_pressed(ship, mouse)

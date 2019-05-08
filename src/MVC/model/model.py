@@ -29,11 +29,11 @@ class player(object):
 
 
 class projectile(object):
-    def __init__(self, x, y, radius, color, direction, mouselocation):
+    def __init__(self, x, y, radius, direction, mouselocation):
         self.x = x
         self.y = y
         self.radius = radius
-        self.color = color
+        self.color = (0, 255, 0)
         self.direction = direction
         self.vel = 10 * direction
         self.mouselocation = mouselocation
