@@ -1,4 +1,5 @@
 import MVC.model.model as model
+import pygame
 # import MVC.controller as controller
 
 

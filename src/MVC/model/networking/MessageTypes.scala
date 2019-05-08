@@ -1,4 +1,4 @@
-package MVC.model
+package MVC.model.networking
 
 // Received by Multiple Types
 case object SendGameState

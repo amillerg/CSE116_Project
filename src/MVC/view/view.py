@@ -2,6 +2,24 @@ import pygame
 import MVC.model.model as model
 import MVC.controller.controller as controller
 import MVC.view.ex_leaderboard as ex_lb
+
+
+
+import json
+import socket
+from threading import Thread
+
+from flask import Flask, send_from_directory, request
+from flask_socketio import SocketIO
+
+import eventlet
+
+def parse_game_state(json):
+    parsed = json.loads(json)
+
+
+socket.on('gameState', parse_game_state)
+
 pygame.init()
 
 height = 600
@@ -137,7 +155,7 @@ list_of_ships = [ship]
 
 time = 0
 while run:
-    clock.tick(60)  # FPS
+    """clock.tick(60)  # FPS
     # print(time)
     time += 1
     if (time == 100):
@@ -148,7 +166,7 @@ while run:
 
     #mousePressed = False
     #line = [(round(ship.x + ship.width // 2), round(ship.y + ship.height // 2)), pygame.mouse.get_pos()]
-
+"""
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
@@ -159,7 +177,6 @@ while run:
             bullet.x += bullet.vel
         else:
             ship.bullets.pop(ship.bullets.index(bullet))
-
 
     keys = pygame.key.get_pressed()
 

@@ -1,6 +1,8 @@
 package MVC.model.ScalaClasses {
 
-  class Projectile(x: Double, y: Double, radius: Double, direction: Int, user: String) {
+  import MVC.model.physics.{PhysicalObject, PhysicsVector}
+
+  class Projectile(location : PhysicsVector, velocity: PhysicsVector, radius : Double, direction: Int, user: String) extends PhysicalObject(location,velocity) {
 
     val vel = 10 * direction
 
