@@ -31,3 +31,15 @@ document.addEventListener("keydown", function (event) {
 document.addEventListener("keyup", function (event) {
     handleEvent(event, false);
 });
+
+document.addEventListener("click", function (ev) {
+
+});
+
+function getMousePos(canvas, evt) {
+    var rect = canvas.getBoundingClientRect();
+    return {
+        x: evt.clientX - rect.left,
+        y: evt.clientY - rect.top
+    };
+}

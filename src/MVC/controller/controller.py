@@ -2,32 +2,18 @@ import MVC.model.model as model
 import pygame
 # import MVC.controller as controller
 
+def setEvent(keys,ship,width,height):
+    if keys[pygame.K_SPACE]:
+        model.mouse_pressed(ship, pygame.mouse.get_pos())
 
-def mouse_pressed(ship, mouse_location):
-    if len(ship.bullets) < 3:
-        ship.bullets.append(
-            model.projectile(
-                round(ship.x + ship.width // 2),
-                round(ship.y + ship.height // 2),
-                6, 1, mouse_location))
+    if keys[pygame.K_a] and (ship.x - width/5) > ship.vel:
+        model.left_pressed(ship)
 
+    if keys[pygame.K_d] and (ship.x + width/5) < width - ship.width - ship.vel:
+        model.right_pressed(ship)
 
-def left_pressed(ship):
-        ship.x -= ship.vel
+    if keys[pygame.K_w] and ship.y > ship.vel:
+        model.up_pressed(ship)
 
-
-def right_pressed(ship):
-        ship.x += ship.vel
-
-
-def up_pressed(ship):
-        ship.y -= ship.vel
-
-
-def down_pressed(ship):
-        ship.y += ship.vel
-
-
-
-
-
+    if keys[pygame.K_s] and ship.y < height - ship.height:
+        model.down_pressed(ship)

@@ -1,4 +1,4 @@
-package MVC.model.physics
+package MVC.model.networking.physics
 
 class PhysicsVector(var x : Double, var y : Double, var z: Double = 0.0) {
 

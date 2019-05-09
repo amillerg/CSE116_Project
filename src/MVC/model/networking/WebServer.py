@@ -2,17 +2,15 @@ import json
 import socket
 from threading import Thread
 
+import eventlet
 from flask import Flask, send_from_directory, request
 from flask_socketio import SocketIO
-
-import eventlet
 
 eventlet.monkey_patch()
 
 app = Flask(__name__)
 socket_server = SocketIO(app)
 
-# ** Connect to Scala TCP socket server **
 
 scala_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 scala_socket.connect(('localhost', 8000))
@@ -71,6 +69,14 @@ def key_state(jsonKeyStates):
     elif not key_states["w"] and key_states["s"]:
         y = 1.0
     message = {"username": request.sid, "action": "move", "x": x, "y": y}
+    send_to_scala(message)
+
+@socket_server.on("mousepressed")
+def mouse_pressed(jsonMouseLocation):
+    mouse_location = json.loads(jsonMouseLocation)
+    mousex = mouse_location["x"]
+    mousey = mouse_location["y"]
+    message = {"username": request.sid, "action": "shoot","mousex":mousex,"mousey":mousey}
     send_to_scala(message)
 
 

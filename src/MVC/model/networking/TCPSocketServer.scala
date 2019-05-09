@@ -2,7 +2,7 @@ package MVC.model.networking
 
 import java.net.InetSocketAddress
 
-import MVC.model._
+
 import akka.actor.{Actor, ActorRef, ActorSystem, Props}
 import akka.io.{IO, Tcp}
 import akka.io.Tcp._
@@ -62,6 +62,9 @@ class TCPSocketServer(gameActor: ActorRef) extends Actor {
         val y = (message \ "y").as[Double]
         gameActor ! MovePlayer(username, x, y)
       case "stop" => gameActor ! StopPlayer(username)
+      case "shoot" =>
+        val mousex = (message \ "mouseX").as[Double]
+        val mousey = (message \ "y").as[Double]
     }
   }
 
@@ -77,7 +80,8 @@ object TCPSocketServer {
 
     import scala.concurrent.duration._
 
-    val gameActor = actorSystem.actorOf(Props(classOf[GameActor]))
+    val gameActor = actorSystem.actorOf(Props(classOf[Supervisor],actorSystem))
+
     val server = actorSystem.actorOf(Props(classOf[TCPSocketServer], gameActor))
 
     actorSystem.scheduler.schedule(16.milliseconds, 32.milliseconds, gameActor, UpdateGame)
@@ -87,3 +91,6 @@ object TCPSocketServer {
   }
 
 }
+
+
+

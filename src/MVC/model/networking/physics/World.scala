@@ -1,4 +1,4 @@
-package MVC.model.physics
+package MVC.model.networking.physics
 
 class World(var gravity : Double) {
   var objects : List[PhysicalObject] = List()

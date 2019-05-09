@@ -7,6 +7,9 @@ import MVC.view.ex_leaderboard as ex_lb
 
 import json
 import socket
+
+import socketio
+
 from threading import Thread
 
 from flask import Flask, send_from_directory, request
@@ -14,11 +17,21 @@ from flask_socketio import SocketIO
 
 import eventlet
 
+
 def parse_game_state(json):
     parsed = json.loads(json)
 
 
 socket.on('gameState', parse_game_state)
+
+sio = socketio.Client()
+@sio.on('gameState')
+def parse_game_state(json_message):
+    parsed = json.loads(json_message)
+
+
+#socket.on('gameState', parse_game_state)
+
 
 pygame.init()
 
@@ -148,7 +161,6 @@ def redrawGameWindow():
 
 
 # mainloop
-
 run = True
 
 list_of_ships = [ship]
@@ -180,27 +192,14 @@ while run:
 
     keys = pygame.key.get_pressed()
 
-    if keys[pygame.K_SPACE]:
-        controller.mouse_pressed(ship, pygame.mouse.get_pos())
+    controller.setEvent(keys, ship, width, height)
 
-    if keys[pygame.K_a] and (ship.x - width/5) > ship.vel:
-        controller.left_pressed(ship)
-
-    if keys[pygame.K_d] and (ship.x + width/5) < width - ship.width - ship.vel:
-        controller.right_pressed(ship)
-
-    if keys[pygame.K_w] and ship.y > ship.vel:
-        controller.up_pressed(ship)
-
-    if keys[pygame.K_s] and ship.y < height - ship.height:
-        controller.down_pressed(ship)
-
-    if event.type == pygame.MOUSEBUTTONDOWN:
+    if True in pygame.mouse.get_pressed():
         mouse = pygame.mouse.get_pos()
         print(type(mouse))
         if mouse[0]<((4/5)*width) and mouse[0] > (width/5):
             #mousePressed = True
-            controller.mouse_pressed(ship, mouse)
+            model.mouse_pressed(ship, mouse)
         if model.buy_life(mouse):
             model.buy_a_life(ship)
 
