@@ -1,4 +1,4 @@
-package ScalaClasses
+package MVC.model.ScalaClasses
 
 import MVC.model.networking.ScalaClasses.Player
 import MVC.model.networking.physics.PhysicsVector
@@ -6,7 +6,7 @@ import MVC.model.networking.physics.PhysicsVector
 import scala.collection.immutable.ListMap
 
 object modelFunctions {
-  
+
 
   def buy_life(mouse: PhysicsVector): Boolean={
     var x: Double = mouse.x
