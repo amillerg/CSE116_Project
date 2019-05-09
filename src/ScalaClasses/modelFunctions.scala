@@ -1,6 +1,7 @@
 package ScalaClasses
 
-import MVC.model.physics.PhysicsVector
+import MVC.model.networking.ScalaClasses.Player
+import MVC.model.networking.physics.PhysicsVector
 
 import scala.collection.immutable.ListMap
 
@@ -29,7 +30,7 @@ object modelFunctions {
     var ratio: Double = 0.0
     for(p<-playerList){
       ratio = p.kills/p.deaths
-      kds += (p.user -> ratio)
+      kds += (p.playerid -> ratio)
     }
     var x = ListMap(kd.toSeq.sortWith(_._2 > _._2):_*)
     for(i<-x.keys){
