@@ -22,7 +22,7 @@ object CounterTest extends App {
       actorSystem.actorOf(Props(classOf[Counter], numberclass.number))
     }
 
-    val supervisor = actorSystem.actorOf(Props(classOf[Supervisor], actorSystem))
+    val supervisor = actorSystem.actorOf(Props(classOf[GameActor], actorSystem))
 
     // two ways of doing it :
 

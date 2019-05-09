@@ -13,7 +13,7 @@ class Game {
   var playerSize = 4
 
   var world = new World(10)
-  val startingVector = new PhysicsVector(5, 5)
+  val startingVector = new PhysicsVector(300,600)
   var projectiles: List[PhysicalObject] = List[PhysicalObject]()
 
   var lastUpdateTime: Long = System.nanoTime()
@@ -29,6 +29,7 @@ class Game {
 
 
   def addPlayer(id: String): Unit = {
+    println(id+"player added into game")
     val player = new Player(startingVector, new PhysicsVector(0, 0), id)
     players += (id -> player)
     world.objects = player :: world.objects

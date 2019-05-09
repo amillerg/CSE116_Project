@@ -51,11 +51,14 @@ class TCPSocketServer(gameActor: ActorRef) extends Actor {
 
   def handleMessageFromWebServer(messageString:String):Unit = {
     val message: JsValue = Json.parse(messageString)
+    println(message)
     val username = (message \ "username").as[String]
     val messageType = (message \ "action").as[String]
 
     messageType match {
-      case "connected" => gameActor ! AddPlayer(username)
+      case "connected" =>
+        println(username+"TCP got the message from Webserver")
+        gameActor ! AddPlayer(username)
       case "disconnected" => gameActor ! RemovePlayer(username)
       case "move" =>
         val x = (message \ "x").as[Double]
@@ -80,7 +83,7 @@ object TCPSocketServer {
 
     import scala.concurrent.duration._
 
-    val gameActor = actorSystem.actorOf(Props(classOf[Supervisor],actorSystem))
+    val gameActor = actorSystem.actorOf(Props(classOf[GameActor],actorSystem))
 
     val server = actorSystem.actorOf(Props(classOf[TCPSocketServer], gameActor))
 
