@@ -1,4 +1,4 @@
-package MVC.model.physics
+package MVC.model.networking.physics
 
 object Physics {
   def computePotentialLocation(physicsObj : PhysicalObject,dt : Double) : PhysicsVector = {

@@ -1,1 +1,4 @@
 pygame
+flask
+eventlet
+flask-socketio

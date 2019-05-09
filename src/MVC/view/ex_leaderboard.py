@@ -22,3 +22,4 @@ alex.deaths = 0
 
 ship_list = [jesse,malika, alex, sajan]
 
+print("hello")

@@ -135,3 +135,33 @@ def topPlayers(playerList):
     for x in sorted_top:
         leaders.append(x[0])
     return leaders # returns list of players from first place to last based on kill/death ratio
+
+
+
+def mouse_pressed(ship, mouse_location):
+    if len(ship.bullets) < 3:
+        ship.bullets.append(
+            projectile(
+                round(ship.x + ship.width // 2),
+                round(ship.y + ship.height // 2),
+                6, 1, mouse_location))
+
+
+def left_pressed(ship):
+    ship.x -= ship.vel
+
+
+def right_pressed(ship):
+    ship.x += ship.vel
+
+
+def up_pressed(ship):
+    ship.y -= ship.vel
+
+
+def down_pressed(ship):
+    ship.y += ship.vel
+
+
+
+

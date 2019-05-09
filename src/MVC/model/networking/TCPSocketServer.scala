@@ -1,16 +1,18 @@
-package MVC.model
+package MVC.model.networking
 
 import java.net.InetSocketAddress
 
+
 import akka.actor.{Actor, ActorRef, ActorSystem, Props}
 import akka.io.{IO, Tcp}
+import akka.io.Tcp._
 import akka.util.ByteString
 import play.api.libs.json.{JsValue, Json}
 
 
 class TCPSocketServer(gameActor: ActorRef) extends Actor {
 
-  import akka.io.Tcp._
+  import Tcp._
   import context.system
 
   IO(Tcp) ! Bind(self, new InetSocketAddress("localhost", 8000))
@@ -60,6 +62,9 @@ class TCPSocketServer(gameActor: ActorRef) extends Actor {
         val y = (message \ "y").as[Double]
         gameActor ! MovePlayer(username, x, y)
       case "stop" => gameActor ! StopPlayer(username)
+      case "shoot" =>
+        val mousex = (message \ "mouseX").as[Double]
+        val mousey = (message \ "y").as[Double]
     }
   }
 
@@ -75,17 +80,17 @@ object TCPSocketServer {
 
     import scala.concurrent.duration._
 
-    val gameActor = actorSystem.actorOf(Props(classOf[GameActor]))
+    val gameActor = actorSystem.actorOf(Props(classOf[Supervisor],actorSystem))
+
     val server = actorSystem.actorOf(Props(classOf[TCPSocketServer], gameActor))
 
     actorSystem.scheduler.schedule(16.milliseconds, 32.milliseconds, gameActor, UpdateGame)
     actorSystem.scheduler.schedule(32.milliseconds, 32.milliseconds, server, SendGameState)
 
 
-    /*val ai = actorSystem.actorOf(Props(classOf[AIController], gameActor))
-    actorSystem.scheduler.schedule(100.milliseconds, 100.milliseconds, ai, Update)
-    */
   }
 
 }
+
+
 
